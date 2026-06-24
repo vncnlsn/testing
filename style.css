@@ -1,0 +1,330 @@
+/* --- Global Variables & Reset --- */
+:root {
+  --navy-dark: #071529;
+  --navy-mid: #0f233c;
+  --rust: #b85a38;
+  --gold: #dfa857;
+  --white: #ffffff;
+  --gray-light: #f5f7fa;
+  --gray-muted: #8a9ba8;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--white);
+  color: var(--navy-dark);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* --- Layout Typographics --- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+.max-width-md { max-width: 780px; }
+.section-padding { padding-block: 5rem; }
+.bg-alt { background-color: var(--gray-light); }
+.bg-dark { background-color: var(--navy-dark); }
+.text-white { color: var(--white); }
+.text-muted { color: var(--gray-muted); }
+.text-gold { color: var(--gold); }
+.text-center { text-align: center; }
+.uppercase { text-transform: uppercase; }
+.tracking-wide { letter-spacing: 0.05em; }
+.font-sm { font-size: 0.875rem; }
+.margin-top-sm { margin-top: 1rem; }
+.margin-top-md { margin-top: 2rem; }
+.margin-top-lg { margin-top: 3.5rem; }
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+h1 { font-size: clamp(2rem, 4vw, 3.25rem); }
+h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); color: var(--navy-dark); }
+.text-white h2 { color: var(--white); }
+h4 { font-size: 1.25rem; color: var(--navy-mid); }
+.section-subtitle {
+  color: var(--rust);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.section-lead {
+  font-size: 1.15rem;
+  color: #4a5568;
+  max-width: 700px;
+  margin-top: 0.5rem;
+}
+
+/* --- Grid Engine --- */
+.grid-2, .grid-3, .grid-4 { display: grid; gap: 2rem; }
+.align-center { align-items: center; }
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* --- Navigation System --- */
+.nav-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  transition: background var(--transition-smooth), border var(--transition-smooth), box-shadow var(--transition-smooth);
+  padding-block: 1.25rem;
+}
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+.logo-img {
+  height: 44px;
+  width: auto;
+  filter: brightness(0) invert(1) !important; /* Forces the asset pure white */
+  opacity: 1 !important;
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.nav-links a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color var(--transition-smooth);
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* Sticky nav class swapped dynamically via JS */
+.nav-wrap.scrolled {
+  background: rgba(7, 21, 41, 0.98);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding-block: 0.85rem;
+}
+
+/* --- Buttons --- */
+.btn-primary, .btn-secondary, .btn-outline {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all var(--transition-smooth);
+}
+.btn-primary { background-color: var(--rust); color: var(--white); }
+.btn-primary:hover { background-color: #a04728; }
+.btn-secondary { background-color: var(--gold); color: var(--navy-dark); }
+.btn-secondary:hover { background-color: #d0943f; color: var(--navy-dark); }
+.btn-outline { border: 2px solid var(--white); color: var(--white); }
+.btn-outline:hover { background-color: var(--white); color: var(--navy-dark); }
+
+/* --- Hero Section --- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 78vh;
+  min-height: 520px;
+  overflow: hidden;
+  background-color: var(--navy-dark);
+  display: flex;
+  align-items: center;
+}
+.video-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Linear scrim overlay for perfect contrast readability */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 21, 41, 0.75) 0%,
+    rgba(7, 21, 41, 0.5) 50%,
+    rgba(7, 21, 41, 0.85) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+.hero-content-overlay {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 850px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  text-align: center;
+  backdrop-filter: blur(1px);
+}
+.hero-content-overlay h1 {
+  color: var(--white);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.4);
+}
+.hero-content-overlay p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+/* --- Metrics Strip --- */
+.metrics-strip {
+  background-color: var(--navy-mid);
+  color: var(--white);
+  padding-block: 2rem;
+  border-bottom: 4px solid var(--rust);
+}
+.metric-card h3 { font-size: 2rem; color: var(--gold); }
+.metric-card p { font-size: 0.9rem; color: var(--gray-muted); margin-top: 0.25rem; }
+
+/* --- Capabilities Cards --- */
+.service-card {
+  background: var(--white);
+  border: 1px solid #e2e8f0;
+  padding: 2rem;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(7, 21, 41, 0.05);
+}
+.service-card p { color: #4a5568; margin-top: 0.75rem; font-size: 0.95rem; }
+
+/* --- Technical Sequential Timeline --- */
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.timeline-item {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--white);
+  padding: 1.5rem;
+  border-radius: 4px;
+  border-left: 4px solid var(--rust);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.timeline-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rust);
+  opacity: 0.6;
+}
+.timeline-content h4 { margin-bottom: 0.25rem; }
+.timeline-content p { color: #4a5568; font-size: 0.95rem; }
+
+/* --- Trust Architecture Styles --- */
+.contingency-box {
+  background-color: var(--gray-light);
+  border-left: 5px solid var(--rust);
+  padding: 2.5rem;
+  border-radius: 0 4px 4px 0;
+}
+.contingency-box blockquote {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--navy-mid);
+  font-weight: 500;
+  line-height: 1.7;
+}
+
+/* --- Quiet Portal Preview Mock --- */
+.portal-preview-frame {
+  background: #0b1a2e;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.preview-header {
+  background: #13273f;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.preview-header .dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+}
+.preview-title {
+  color: var(--gray-muted);
+  font-family: monospace;
+  font-size: 0.8rem;
+  margin-left: auto;
+}
+.preview-body {
+  padding: 1.5rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+.preview-row {
+  padding-block: 0.65rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.8);
+}
+.preview-row:last-child { border-bottom: none; }
+.preview-row strong { color: var(--gold); }
+.badge {
+  background: rgba(223, 168, 87, 0.15);
+  color: var(--gold);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+}
+.clean-list { list-style: none; }
+.clean-list li { margin-top: 0.5rem; }
+
+/* --- Footer --- */
+footer {
+  background-color: #040c17;
+  padding-block: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
