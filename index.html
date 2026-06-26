@@ -181,13 +181,16 @@
         </div>
       </div>
 
-      <p class="map-hint">Hover any highlighted state to see project data</p>
-    </div>
+      <div class="map-state-panel" id="map-state-panel" aria-live="polite">
+          <div class="msp-name" id="msp-name"></div>
+          <div class="msp-status" id="msp-status"></div>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Discuss Your Route →</a>
 
     <!-- Map canvas — SVG injected by us-map.js -->
     <div class="map-canvas" aria-label="Interactive US coverage map">
-      <div id="us-map"></div>
-    </div>
+        <div id="us-map"></div>
+      </div>
 
   </div>
 </section>
