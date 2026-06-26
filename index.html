@@ -143,46 +143,54 @@
   </section>
 
   <!-- ============================================================
-       MAP — COVERAGE
-       ============================================================ -->
-  <section class="map-section" id="coverage" aria-labelledby="map-heading">
-    <div class="map-layout">
-      <div class="map-sidebar">
-        <p class="section-label">Where We Work</p>
-        <h2 class="section-title" id="map-heading">
-          Decades of work. <em>Regional depth.</em>
-        </h2>
-        <p>
-          APS has active project experience across 27+ states, with deep roots in
-          Texas, the Mountain West, the Gulf Coast, and the Great Plains.
-          Wherever your project routes, we know the land.
-        </p>
-        <div class="state-list">
-          <span class="state-tag" data-state="TX">Texas</span>
-          <span class="state-tag" data-state="OK">Oklahoma</span>
-          <span class="state-tag" data-state="LA">Louisiana</span>
-          <span class="state-tag" data-state="CO">Colorado</span>
-          <span class="state-tag" data-state="WY">Wyoming</span>
-          <span class="state-tag" data-state="UT">Utah</span>
-          <span class="state-tag" data-state="MT">Montana</span>
-          <span class="state-tag" data-state="NM">New Mexico</span>
-          <span class="state-tag" data-state="ND">North Dakota</span>
-          <span class="state-tag" data-state="KS">Kansas</span>
-          <span class="state-tag" data-state="AR">Arkansas</span>
-          <span class="state-tag" data-state="MS">Mississippi</span>
-          <span class="state-tag" data-state="PA">Pennsylvania</span>
-          <span class="state-tag" data-state="WV">West Virginia</span>
-          <span class="state-tag" data-state="OH">Ohio</span>
+     MAP — COVERAGE  (replace existing map-section in index.html)
+     ============================================================ -->
+<section class="map-section" id="coverage" aria-labelledby="map-heading">
+  <div class="map-layout">
+
+    <!-- Sidebar: pure credibility copy, no state tag list, no CTA -->
+    <div class="map-sidebar">
+      <p class="section-label">Where We Work</p>
+      <h2 class="section-title" id="map-heading">
+        Decades of work. <em>Regional depth.</em>
+      </h2>
+      <p>
+        APS has built active project experience across 27+ states since 1981.
+        Deep roots in Texas, the Mountain West, the Gulf Coast, and the Great
+        Plains mean we already know the land, the landowners, and the local
+        agencies before your project starts.
+      </p>
+
+      <!-- Macro stats strip -->
+      <div class="map-coverage-stats">
+        <div class="mcs-item">
+          <span class="mcs-val">27+</span>
+          <span class="mcs-lbl">States Active</span>
         </div>
-        <a href="contact.html" class="btn btn-primary">Discuss Your Route →</a>
+        <div class="mcs-item">
+          <span class="mcs-val">45 yrs</span>
+          <span class="mcs-lbl">In Operation</span>
+        </div>
+        <div class="mcs-item">
+          <span class="mcs-val">40k+</span>
+          <span class="mcs-lbl">Landowners Contacted</span>
+        </div>
+        <div class="mcs-item">
+          <span class="mcs-val">12k+</span>
+          <span class="mcs-lbl">Permits Secured</span>
+        </div>
       </div>
 
-      <div class="map-canvas" aria-label="Interactive US coverage map">
-        <div id="us-map"></div>
-        <div class="map-tooltip" role="tooltip" aria-live="polite"></div>
-      </div>
+      <p class="map-hint">Hover any highlighted state to see project data</p>
     </div>
-  </section>
+
+    <!-- Map canvas — SVG injected by us-map.js -->
+    <div class="map-canvas" aria-label="Interactive US coverage map">
+      <div id="us-map"></div>
+    </div>
+
+  </div>
+</section>
 
   <!-- ============================================================
        LOGO MARQUEE
