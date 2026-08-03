@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — APS Land</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="services-app">
+
+  <header class="nav-wrap nav-solid" id="site-nav">
+    <nav class="nav-inner">
+      <a href="index.html" class="nav-logo">APS <em>Land</em></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="contact.html" class="btn-nav-cta">Request Consultation</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <section class="services-intro">
+    <div class="services-intro-inner">
+      <div>
+        <span class="eyebrow">What we do</span>
+        <h1>The land and permit work,<br /><em>one service at a time.</em></h1>
+        <p class="services-intro-sub">Select a service below, or scroll / use arrows while focused on the panel.</p>
+      </div>
+      <div class="services-intro-actions">
+        <a href="contact.html" class="btn-primary">Start a Conversation</a>
+        <span class="services-intro-hint">6 services</span>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tabbar-wrap" aria-label="Service selector">
+    <div class="tabbar" id="tabbar" role="tablist"></div>
+  </nav>
+
+  <main class="stage" id="stage" tabindex="0" aria-label="Service detail">
+    <button class="cycle-btn cycle-up" id="cycle-up" aria-label="Previous service">▲ Prev</button>
+    <div id="panels"></div>
+    <div class="rail" id="rail"></div>
+    <button class="cycle-btn cycle-down" id="cycle-down" aria-label="Next service">Next ▼</button>
+  </main>
+
+</div>
+
+<script src="main.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  const SERVICES = [
+    {
+      name: 'Permit Acquisition',
+      tagline: 'Getting crews cleared to work.',
+      desc: 'End-to-end permit acquisition for seismic, VSP, and microseismic programs — landowner contact, access negotiation, document execution, and tracking.',
+      items: [
+        'Surface & mineral owner identification',
+        'Permit negotiation & execution',
+        'VSP & microseismic access permitting',
+        'Compliance documentation & tracking'
+      ]
+    },
+    {
+      name: 'Landowner Relations & Field Oversight',
+      tagline: 'Staying involved after the signature.',
+      desc: 'APS stays on the project after the permit is signed — field work aligned with the agreement, issues documented early, landowner relationship protected.',
+      items: [
+        'Pre-entry landowner coordination',
+        'On-site field monitoring',
+        'Damage & claim documentation',
+        'Restoration verification',
+        'Settlement support for access claims'
+      ]
+    },
+    {
+      name: 'Title & Land Research',
+      tagline: 'Knowing who owns what, before anyone knocks.',
+      desc: 'Ownership verification, deed research, parcel mapping, mineral tracing, and GIS spatial analysis.',
+      items: [
+        'Surface owner verification',
+        'Mineral rights research',
+        'Chain-of-title review',
+        'GIS mapping & spatial analysis',
+        'Curative work on problem parcels'
+      ]
+    },
+    {
+      name: 'Right-of-Way & Leasing',
+      tagline: 'Securing the ground itself.',
+      desc: 'Permanent and temporary easements for pipelines and transmission lines, oil and gas leasing, mineral rights negotiation, lease administration.',
+      items: [
+        'Permanent & temporary easements',
+        'Oil & gas leasing',
+        'Mineral rights negotiation',
+        'Lease administration support'
+      ]
+    },
+    {
+      name: 'Regulatory Coordination',
+      tagline: 'Working every desk that needs to sign off.',
+      desc: 'Coordination with state, federal, county, railroad, and utility stakeholders — built into the plan so approvals never become a late-stage bottleneck.',
+      items: [
+        'State & federal agency coordination',
+        'County & railroad approvals',
+        'Utility stakeholder management',
+        'Planned in from day one'
+      ]
+    },
+    {
+      name: 'Project & Cost Support',
+      tagline: 'The paperwork that keeps a project honest.',
+      desc: 'Early access and ownership review so the design reflects what is actually permittable. Transparent cost tracking. Turnkey or day-rate engagement.',
+      items: [
+        'Early access & design review',
+        'Permit cost tracking & reporting',
+        'Turnkey or day-rate structure',
+        'Clear documentation for the client record'
+      ]
+    }
+  ];
+
+  const tabbar = document.getElementById('tabbar');
+  const panelsWrap = document.getElementById('panels');
+  const rail = document.getElementById('rail');
+  const stage = document.getElementById('stage');
+
+  SERVICES.forEach((s, i) => {
+    const tab = document.createElement('button');
+    tab.className = 'tab';
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('data-index', i);
+    tab.innerHTML = '<span class="tab-num">' + String(i + 1).padStart(2, '0') + '</span><span>' + s.name + '</span>';
+    tab.addEventListener('click', () => setActive(i));
+    tabbar.appendChild(tab);
+
+    const panel = document.createElement('div');
+    panel.className = 'panel';
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('data-index', i);
+    panel.innerHTML =
+      '<div class="panel-inner">' +
+        '<div class="panel-label-col">' +
+          '<p class="panel-tagline">' + s.tagline + '</p>' +
+          '<h2 class="panel-name">' + s.name + '</h2>' +
+        '</div>' +
+        '<div class="panel-body">' +
+          '<p class="panel-desc">' + s.desc + '</p>' +
+          '<ul class="panel-list">' + s.items.map(function (it) { return '<li>' + it + '</li>'; }).join('') + '</ul>' +
+        '</div>' +
+      '</div>';
+    panelsWrap.appendChild(panel);
+
+    const mark = document.createElement('div');
+    mark.className = 'rail-mark';
+    rail.appendChild(mark);
+  });
+
+  let current = 0;
+  const tabs = () => Array.from(tabbar.querySelectorAll('.tab'));
+  const panels = () => Array.from(panelsWrap.querySelectorAll('.panel'));
+  const marks = () => Array.from(rail.querySelectorAll('.rail-mark'));
+
+  function setActive(index) {
+    current = (index + SERVICES.length) % SERVICES.length;
+    tabs().forEach((t, i) => t.classList.toggle('active', i === current));
+    panels().forEach((p, i) => p.classList.toggle('active', i === current));
+    marks().forEach((m, i) => m.classList.toggle('active', i === current));
+  }
+  setActive(0);
+
+  let wheelLocked = false;
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (wheelLocked) return;
+    wheelLocked = true;
+    setActive(current + (e.deltaY > 0 ? 1 : -1));
+    setTimeout(() => { wheelLocked = false; }, 500);
+  }, { passive: false });
+
+  stage.addEventListener('keydown', (e) => {
+    if (['ArrowDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); setActive(current + 1); }
+    if (['ArrowUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); setActive(current - 1); }
+  });
+
+  let touchStartY = null;
+  stage.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (touchStartY === null) return;
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 40) setActive(current + (dy > 0 ? 1 : -1));
+    touchStartY = null;
+  }, { passive: true });
+
+  document.getElementById('cycle-up').addEventListener('click', () => setActive(current - 1));
+  document.getElementById('cycle-down').addEventListener('click', () => setActive(current + 1));
+})();
+</script>
+
+</body>
+</html>
